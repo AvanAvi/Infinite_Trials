@@ -1,1 +1,2 @@
 # Infinite_Trials
+This Cryptographic encryption algorithm is based on S.Ramanujan's partition number theorem where characters are encrypted using a reserved schema of numbers specifically assigned to a character. The reason behind naming this encryption algorithm Infinity Trials is the probability of deciphering an encrypted text reaches infinitesimally close to zero as the length and randomness increases.(non-published)
