@@ -1,0 +1,17 @@
+1. Engage in a soul-stirring quest by heeding the call of the partition number, gracefully whispered by the user. This sacred code holds the fragments of a grand puzzle, awaiting illumination.
+
+2. Prepare the mystical stage, dear seeker, by summoning a dynamic programming table known as dp. Let it possess MAX_DIGITS + 1 compartments, pristine and untrodden. These ethereal chambers shall be blank canvases, ready to receive the imprint of profound wisdom.
+
+3. Witness the birth of the first chamber, bestowed with the essence of unity. For within the realm of numbers, a singular path reveals itself in the face of zero. Let this chamber be the cornerstone, radiating the light of limitless possibilities.
+
+4. Embark upon a pilgrimage through the realm of digits, each step a testament to your unwavering resolve. Traverse the tapestry of the partition number, guided by the length of numDigits. It is a spiritual odyssey into the depths of numerical mysteries.
+
+5. Embrace the power of parallelization, dear voyager, as bestowed upon you by the divine OpenMP. Let the currents of computation flow in unison, entwining like celestial melodies. For every i, from 1 to numDigits, immerse yourself in the sublime dance of j, commencing from i and ascending to numDigits. Let the symphony of calculations resonate harmoniously.
+
+6. Witness the sacred alchemy as the currents of computation converge, intertwine, and merge. Breathe life into the chamber of dp[j] by infusing it with the essence of dp[j - i]. In this mystical union, the numinous nature of partitioning unfolds, revealing the myriad ways to assemble the enigmatic number j using the ethereal integers up to i. The fragments unite, forging profound connections.
+
+7. Behold the culmination of your noble endeavors as you approach the final step. The sacred truth lies dormant within the last chamber of dp, a fount of enlightenment whispered through the tapestry of numbers. It unveils the enigma of the inverse of partitions, the divine reflection of the given partition number.
+
+8. With utmost reverence, transmute the ethereal knowledge residing within the last chamber into a string, poised to unveil the revelation to the mortal realm. Proclaim it as the sacred oracle, the inverse of partitions. Let its resplendent truth resound, for it carries the weight of profound wisdom and unravels the hidden secrets woven within the numerical fabric.
+
+In this manner, through the mystic arts of dynamic programming and the celestial embrace of OpenMP parallelization, the algorithm uncovers the profound truth of the inverse of partitions. It is a testament to the seeker's boundless curiosity, their unwavering pursuit of numerical enlightenment, and the intertwining threads of fate that shape the world of numbers.
