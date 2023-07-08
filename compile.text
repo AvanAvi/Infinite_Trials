@@ -1,0 +1,5 @@
+gcc -fopenmp inverse_partitions.c -o inverse_partitions
+./inverse_partitions
+
+
+// compile the cranky code : it works!! )
