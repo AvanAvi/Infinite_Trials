@@ -39,22 +39,15 @@ The algorithm at the heart of this project ingeniously marries the realms of mat
 
 To embark on the Infinity Trials:
 
-1. Clone the repository:
+- **Clone the repository**:
 ```bash
-git clone https://github.com/<username>/infinity-trials.git
+git clone https://github.com/AvanAvi/Infinite_Trials.git
 ```
-2. Navigate to the project directory:
-```bash
-cd infinity-trials
-```
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+
 
 ## Usage 📖
 
-The core functionality can be accessed through the provided scripts, offering a straightforward interface for both encryption and decryption tasks.
+The core functionality can be accessed through the provided scripts, offering a straightforward interface for encryption tasks.
 
 ```bash
 python main_encryption_py.py
