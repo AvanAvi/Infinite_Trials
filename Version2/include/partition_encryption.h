@@ -16,8 +16,6 @@
 #include <memory>
 #include <gmpxx.h> // For GMP library
 
-Class DecryptionStrategy {
-
 /**
  * @class PartitionEncryption
  * @brief Main class for handling partition-based encryption and decryption
