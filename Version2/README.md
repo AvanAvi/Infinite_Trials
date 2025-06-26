@@ -196,4 +196,3 @@ make
 
 ---
 
-*This implementation provides a solid foundation for memory-efficient password recovery in partition-based cryptographic systems.*
