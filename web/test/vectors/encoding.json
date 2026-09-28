@@ -1,0 +1,519 @@
+{
+  "cases": [
+    {
+      "password": "a",
+      "value": "0",
+      "length": 1
+    },
+    {
+      "password": "b",
+      "value": "1",
+      "length": 1
+    },
+    {
+      "password": "ab",
+      "value": "1",
+      "length": 2
+    },
+    {
+      "password": "ba",
+      "value": "62",
+      "length": 2
+    },
+    {
+      "password": "aa",
+      "value": "0",
+      "length": 2
+    },
+    {
+      "password": "aaaaa",
+      "value": "0",
+      "length": 5
+    },
+    {
+      "password": "99999",
+      "value": "916132831",
+      "length": 5
+    },
+    {
+      "password": "R",
+      "value": "43",
+      "length": 1
+    },
+    {
+      "password": "J",
+      "value": "35",
+      "length": 1
+    },
+    {
+      "password": "5",
+      "value": "57",
+      "length": 1
+    },
+    {
+      "password": "rS",
+      "value": "1098",
+      "length": 2
+    },
+    {
+      "password": "YW",
+      "value": "3148",
+      "length": 2
+    },
+    {
+      "password": "1c",
+      "value": "3288",
+      "length": 2
+    },
+    {
+      "password": "n8g",
+      "value": "53698",
+      "length": 3
+    },
+    {
+      "password": "YC9",
+      "value": "193997",
+      "length": 3
+    },
+    {
+      "password": "w6N",
+      "value": "88203",
+      "length": 3
+    },
+    {
+      "password": "mTvG",
+      "value": "3034250",
+      "length": 4
+    },
+    {
+      "password": "0cDb",
+      "value": "12402543",
+      "length": 4
+    },
+    {
+      "password": "qQSz",
+      "value": "3977449",
+      "length": 4
+    },
+    {
+      "password": "PKRZH",
+      "value": "614578071",
+      "length": 5
+    },
+    {
+      "password": "047gd",
+      "value": "781943011",
+      "length": 5
+    },
+    {
+      "password": "6m7rJ",
+      "value": "860115309",
+      "length": 5
+    },
+    {
+      "password": "bpEOL8",
+      "value": "1145083826",
+      "length": 6
+    },
+    {
+      "password": "s9vlNn",
+      "value": "17396797075",
+      "length": 6
+    },
+    {
+      "password": "297lo0",
+      "value": "50386633980",
+      "length": 6
+    },
+    {
+      "password": "gpkYUwq",
+      "value": "354703263948",
+      "length": 7
+    },
+    {
+      "password": "BaX0a4Y",
+      "value": "1534342797810",
+      "length": 7
+    },
+    {
+      "password": "70QQ9w8",
+      "value": "3399483658516",
+      "length": 7
+    },
+    {
+      "password": "GLRZXdoK",
+      "value": "114833435110684",
+      "length": 8
+    },
+    {
+      "password": "YWp4aME5",
+      "value": "178821711233717",
+      "length": 8
+    },
+    {
+      "password": "UTUKBBb1",
+      "value": "164592963083975",
+      "length": 8
+    },
+    {
+      "password": "UOfxukNif",
+      "value": "10184814811447009",
+      "length": 9
+    },
+    {
+      "password": "03eP6G0Jw",
+      "value": "11547639921000544",
+      "length": 9
+    },
+    {
+      "password": "xR9Qg9fG6",
+      "value": "5176755251686406",
+      "length": 9
+    },
+    {
+      "password": "In0X7WIbrY",
+      "value": "463285325885840164",
+      "length": 10
+    },
+    {
+      "password": "iPgLZI6D8c",
+      "value": "117271915234551086",
+      "length": 10
+    },
+    {
+      "password": "3JW4kY9vL6",
+      "value": "752353891969023612",
+      "length": 10
+    },
+    {
+      "password": "gkJK3gkKvfS",
+      "value": "5178938872160150070",
+      "length": 11
+    },
+    {
+      "password": "lxwOqqZ5n01",
+      "value": "9548591286252045929",
+      "length": 11
+    },
+    {
+      "password": "oWamJB13qbz",
+      "value": "12400015549292835471",
+      "length": 11
+    },
+    {
+      "password": "b8onzMhF7BxZ",
+      "value": "102586970474617070953",
+      "length": 12
+    },
+    {
+      "password": "ets3JajEAKSO",
+      "value": "224348730215692793552",
+      "length": 12
+    },
+    {
+      "password": "PHzYyKBhy7ay",
+      "value": "2161545297868315907924",
+      "length": 12
+    },
+    {
+      "password": "lDter4QzLStpd",
+      "value": "37013999393907140663873",
+      "length": 13
+    },
+    {
+      "password": "hGx4Ltb6aDjCN",
+      "value": "24269107386534175382699",
+      "length": 13
+    },
+    {
+      "password": "xOSxnlPq7MTPS",
+      "value": "76322841367097432763406",
+      "length": 13
+    },
+    {
+      "password": "MbJEJ3NST4fCE9",
+      "value": "7606157703523379387876649",
+      "length": 14
+    },
+    {
+      "password": "VoZASWMvv8gCjQ",
+      "value": "9449185372926606335248376",
+      "length": 14
+    },
+    {
+      "password": "G0fMjyRmzXh8EP",
+      "value": "6568971331647522328633493",
+      "length": 14
+    },
+    {
+      "password": "KuWW5i9kesyBEQr",
+      "value": "450621676954267041491800349",
+      "length": 15
+    },
+    {
+      "password": "joQ795BQSEgXIIy",
+      "value": "114554949797701045999802356",
+      "length": 15
+    },
+    {
+      "password": "Bu4VZ1ZLKMPiZLJ",
+      "value": "339031505711174016731303925",
+      "length": 15
+    },
+    {
+      "password": "MjRZpUu6Rl83Yfz1",
+      "value": "29338951299198224895595686135",
+      "length": 16
+    },
+    {
+      "password": "0hGiZYIlrtgUXBYS",
+      "value": "40076546463061452875249774732",
+      "length": 16
+    },
+    {
+      "password": "V7Jdfd5sBZvagdEP",
+      "value": "36877471470387861717575842537",
+      "length": 16
+    },
+    {
+      "password": "E7gH8ruoHkZU6Jbl1",
+      "value": "1475618929832697073624696284267",
+      "length": 17
+    },
+    {
+      "password": "8N3A8QHHvEBGhytKQ",
+      "value": "2891019074753030644362548232350",
+      "length": 17
+    },
+    {
+      "password": "f3y7MchoPN0gdQOxq",
+      "value": "280961609164832265692203932898",
+      "length": 17
+    },
+    {
+      "password": "TJsNWq2LbXQPHcGL13",
+      "value": "134688868521304717274576639414241",
+      "length": 18
+    },
+    {
+      "password": "W4XiTeprQYAXJRRlaI",
+      "value": "144580506779771650456400337395846",
+      "length": 18
+    },
+    {
+      "password": "tnE68hpq17SqDWHtxy",
+      "value": "56801629051693432636505506013006",
+      "length": 18
+    },
+    {
+      "password": "hJm6vTVtD7WPpAjDqQ8",
+      "value": "1386835032005474392914139839570768",
+      "length": 19
+    },
+    {
+      "password": "yBz1JbFS9FW7SFG3DNL",
+      "value": "4479101688943281628141089306115571",
+      "length": 19
+    },
+    {
+      "password": "wSFt6P6Jo4LTaJLDUeB",
+      "value": "4163103160828927320677941057235539",
+      "length": 19
+    },
+    {
+      "password": "r4XVH8vclVJ6HHSSQWYf",
+      "value": "203557605980342569650351793089607313",
+      "length": 20
+    },
+    {
+      "password": "AN9tbNG7C1UW0qBuIXOw",
+      "value": "302731431835919087210792495117691482",
+      "length": 20
+    },
+    {
+      "password": "ouKBIti64VNbnK35xuPc",
+      "value": "162836126734803948061210678985137336",
+      "length": 20
+    },
+    {
+      "password": "Q0tJQMdhlPJFM0jQHsN4I",
+      "value": "30180177899121923602450892377501334990",
+      "length": 21
+    },
+    {
+      "password": "tKxFalXKlEw1ILYFFcWgn",
+      "value": "13797371586745096393722947588720370753",
+      "length": 21
+    },
+    {
+      "password": "LfJuoi3iIp1oLwG2mJb48",
+      "value": "26126948718961308145239558647496480952",
+      "length": 21
+    },
+    {
+      "password": "NxUFLLrUMgeWHlAy9hROf5",
+      "value": "1720026010467400368257674790508976726151",
+      "length": 22
+    },
+    {
+      "password": "OPvgGOVFOMOyjG37gtGeP4",
+      "value": "1776091246876961034139159383355974747878",
+      "length": 22
+    },
+    {
+      "password": "AHcaYlP05RlbFRpAQRIcur",
+      "value": "1158799406702143156232457399414810692945",
+      "length": 22
+    },
+    {
+      "password": "spUt1OhxRQBhoSF5OIOD5Y6",
+      "value": "49428208626449917236010537635482783257874",
+      "length": 23
+    },
+    {
+      "password": "wYGWalTHAhWuxj8fG3AjAGw",
+      "value": "61778479815226651901848479398737314069302",
+      "length": 23
+    },
+    {
+      "password": "nVb4HKM8bJoyHUFpnNFCmSz",
+      "value": "37255484115922714755693029992039989446113",
+      "length": 23
+    },
+    {
+      "password": "mRhcHUmbeINNzmzxAmVCHQcq",
+      "value": "2131348982834425511539317015208873542153228",
+      "length": 24
+    },
+    {
+      "password": "3nvMcSYRuMpvRFULx1C90ijE",
+      "value": "9269755844755045381693653888504737197448156",
+      "length": 24
+    },
+    {
+      "password": "aH4TImWdvjnbThvXtkW1tWbz",
+      "value": "91835366202918712649544158622289383264975",
+      "length": 24
+    },
+    {
+      "password": "bu19ExiA0OKtD8ulGYeiWONUC",
+      "value": "13912672863724198954860460011155212750790556",
+      "length": 25
+    },
+    {
+      "password": "1nsz0WjyD9F3fJCZ4N6aKxBlH",
+      "value": "553898612013330439265636729201008473316713407",
+      "length": 25
+    },
+    {
+      "password": "qCRB2UV1jGma5dyty4JJZFPG7",
+      "value": "171359156018981821196717150800078882350708023",
+      "length": 25
+    },
+    {
+      "password": "RDuibKTxsquWxjBo6oYSnXXr83",
+      "value": "28055087922204981913870174819943110801001478379",
+      "length": 26
+    },
+    {
+      "password": "W4d4U7M4oBm0zNMfE5QoTWvDdM",
+      "value": "31560130517070597616203183785178214653287232396",
+      "length": 26
+    },
+    {
+      "password": "nVyh7R6A6jUSfkO7ndhLD0T7pg",
+      "value": "8882754804685349016754626145437513173983149452",
+      "length": 26
+    },
+    {
+      "password": "XWDzfa3hw5u0nOi2KXGU43nqSi0",
+      "value": "1991842055902001217776248568588058192448725735748",
+      "length": 27
+    },
+    {
+      "password": "t1r1ZtqhCGZFvg6Lij3WgMYZwkj",
+      "value": "794606207923909478963908115328149264860060709141",
+      "length": 27
+    },
+    {
+      "password": "4E9xA775yjgu9rQXKrZu5UxoXub",
+      "value": "2260638559043282473772718116933706802963616454429",
+      "length": 27
+    },
+    {
+      "password": "ENtFpgG1BxE2QCLARJiQIGLUr0XN",
+      "value": "75994266746978828013533080483853530436310404530829",
+      "length": 28
+    },
+    {
+      "password": "P9TdjZRIcY9GaCxuajeqZgVsTPO6",
+      "value": "104178790628251951262648835024577007374961101623910",
+      "length": 28
+    },
+    {
+      "password": "St88s4HGOZBzDrYbbvQyPnGKnWeb",
+      "value": "109950709614327869997403211204795210536574683514193",
+      "length": 28
+    },
+    {
+      "password": "Y4WmzsiVzRuQUzMspRN7RdIZE2I30",
+      "value": "7831042449088281019453191815948806350509735603524574",
+      "length": 29
+    },
+    {
+      "password": "rlUGklHK8GOyMvJo6cuXtmW7kOZKw",
+      "value": "2643815115184237218960024818633989942928180998330778",
+      "length": 29
+    },
+    {
+      "password": "Z0PDqjAR8cdgQyGCmDrIAHoW3eNVi",
+      "value": "7974654298716320131608047525348898447432197552479062",
+      "length": 29
+    },
+    {
+      "password": "rrJUwvWZvXpXLw60ohKt5D1FeLqwoY",
+      "value": "164812640676638762182799872799569100873653959050673022",
+      "length": 30
+    },
+    {
+      "password": "71IUvFJp7WonHIWoxBr4dG22jkESc6",
+      "value": "570852416116749614627786673875426174326786461570565750",
+      "length": 30
+    },
+    {
+      "password": "CNPJtaOi1Ei1cxvR5u2cV3uviYYWC6",
+      "value": "273105017759649636873230455782053847564184396598663826",
+      "length": 30
+    },
+    {
+      "password": "1pgqwRF2h3JJYYNGYi9EbcP8cdtrJkJ",
+      "value": "31478774157434475106798266610094955472781898796166992611",
+      "length": 31
+    },
+    {
+      "password": "ppdk0ukwUYlZ3jb7TZ0CXsqGfvhooxo",
+      "value": "9011857940960719174942159368339460150071699082554875000",
+      "length": 31
+    },
+    {
+      "password": "ajhikeIdxStSTvG3ETv4GRSXZlJ4eez",
+      "value": "86919443799987999994860887974661057274179110437978737",
+      "length": 31
+    },
+    {
+      "password": "ZWxHfeYH1sb4YZ87Vg32T3ZqXnBsgZB0",
+      "value": "1898047463774302695357182090877431478663682810517569251546",
+      "length": 32
+    },
+    {
+      "password": "MOoMDfuBFTRDuIhZZOG7Y4uCoXFUwYHU",
+      "value": "1416707652410788285519530009193796010345391185374467939460",
+      "length": 32
+    },
+    {
+      "password": "5sfptwBSNbotB8kerHqnLGCr4K0RPiwY",
+      "value": "2100071055556596289247203610231179797809261649471060916622",
+      "length": 32
+    }
+  ]
+}

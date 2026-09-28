@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "password": "ab",
+      "length": 2,
+      "k": 3,
+      "total": 1
+    },
+    {
+      "password": "cab",
+      "length": 3,
+      "k": 8,
+      "total": 1
+    },
+    {
+      "password": "face",
+      "length": 4,
+      "k": 32,
+      "total": 6
+    },
+    {
+      "password": "password12",
+      "length": 10,
+      "k": 981954,
+      "total": 166166
+    }
+  ]
+}
