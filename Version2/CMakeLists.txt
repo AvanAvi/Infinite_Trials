@@ -53,6 +53,7 @@ if(BUILD_TESTING_INFINITE_TRIALS)
 
     add_executable(partition_tests
         test/test_partition_encryption.cpp
+        test/test_backtracking_strategy.cpp
     )
 
     target_link_libraries(partition_tests
