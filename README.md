@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Version 1 (Original Python)](#version-1-original-python)
 - [Version 2 (Advanced C++ Implementation)](#version-2-a-leap-forward)
+- [Version 3 (Keyed, Reversible Encryption)](#version-3-keyed-reversible-encryption)
 - [Mathematical Background](#mathematical-background)
 - [Algorithm Mechanics](#algorithm-mechanics)
 - [Setup Instructions](#setup-instructions)
@@ -62,6 +63,57 @@ For the first time, I'm exploring a **decryption mechanism** for the algorithm. 
 - C++17 compatible compiler
 - GMP library for arbitrary precision arithmetic
 - CMake for build management
+
+## Version 3: Keyed, Reversible Encryption
+
+Version 3 is a different construction from V1/V2, not a fix to them - see
+[docs/ANALYSIS.md](docs/ANALYSIS.md) for why V1/V2's approach can't be
+patched into something secure. It still uses partition numbers, but as
+the *domain* a keyed permutation operates over, not as the source of any
+difficulty:
+
+1. **Encode**: the password becomes an integer via fixed-alphabet base-62 encoding (`Version3/encoding.py`), with its length stored alongside - not reconstructed by padding, which would be ambiguous (`"a"` and `"aa"` both encode to value 0).
+2. **Permute**: a keyed balanced Feistel network (10+ rounds, HMAC-SHA256 round function, cycle walking to stay in range - `Version3/feistel.py`) turns that integer into a different one in the same range, using a 256-bit key.
+3. **Unrank**: the permuted integer is unranked into a partition of some N (`Version3/partition_rank.py`, a bijection between integers and partitions of N) - that partition, serialized as `N:length:part1+part2+...`, is the ciphertext.
+
+Decryption reverses every step exactly, recovering the original password
+bit-for-bit - unlike V1/V2, where decryption returns *a* valid password
+sharing the same encrypted value, not necessarily *the* one that was
+encrypted.
+
+**Where the security comes from:** the 256-bit key and HMAC-SHA256, not
+the partition math - see [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for
+what that does and doesn't cover (known limitations: encryption is
+currently deterministic, the Feistel construction is custom and
+unaudited, and ciphertext length leaks roughly the password length).
+[docs/ROADMAP.md](docs/ROADMAP.md) covers what closes those gaps next,
+plus a post-quantum review.
+
+### Usage
+
+```bash
+cd Version3
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# Generate a random 256-bit key
+.venv/bin/python3 cli.py keygen
+# key: <64 hex characters>
+
+# Or derive one from a passphrase (Argon2id, ~0.5-1s) - save the printed salt
+.venv/bin/python3 cli.py keygen --passphrase
+
+# Encrypt / decrypt with a hex key
+.venv/bin/python3 cli.py encrypt --key <hex> "MyPassword123"
+.venv/bin/python3 cli.py decrypt --key <hex> "<ciphertext>"
+
+# Or with a passphrase (decrypt requires the same --salt encrypt printed)
+.venv/bin/python3 cli.py encrypt --passphrase "MyPassword123"
+.venv/bin/python3 cli.py decrypt --passphrase --salt <hex> "<ciphertext>"
+
+# Run the tests (54 tests, ~2 minutes - dominated by one-time partition
+# table builds for large password lengths, cached after first use)
+.venv/bin/python3 -m unittest discover -p "test_*.py"
+```
 
 ## Mathematical Background
 
@@ -205,12 +257,30 @@ make
 ctest --output-on-failure
 ```
 
+### Version 3 (Python)
+```bash
+# Requirements
+Python 3.9+
+argon2-cffi (installed into a venv below - Homebrew's externally-managed
+Python blocks global pip installs, and a venv is the right call anyway)
+
+# Setup
+git clone https://github.com/AvanAvi/Infinite_Trials.git
+cd Infinite_Trials/Version3
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+# Run tests
+.venv/bin/python3 -m unittest discover -p "test_*.py"
+```
+
 ## Acknowledgements
 
 - **Original Collaborators**: Pushkar Pohekar and myself during our undergraduate days
 - **Mathematical Inspiration**: S. Ramanujan's work on partition numbers
 - **Version 2 Development**: Started in 2025 as an extension of the original concept
+- **Version 3 Development**: A properly keyed, reversible construction, built once V1/V2's approach was shown not to be fixable (see docs/ANALYSIS.md)
 
 ---
 
-*This project combines number theory and computer science to explore partition numbers as the basis for an encoding scheme - not, as earlier versions of this README claimed, a secure one. See [docs/ANALYSIS.md](docs/ANALYSIS.md) for why exact decryption isn't achievable. A properly keyed, reversible design built on the same mathematics is planned as a future version.*
+*This project combines number theory and computer science to explore partition numbers as the basis for an encoding scheme. V1 and V2 are not secure, despite earlier versions of this README's claims - see [docs/ANALYSIS.md](docs/ANALYSIS.md) for why exact decryption isn't achievable there. V3 is a properly keyed, reversible design built on the same mathematics; see [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) for what its security does and doesn't rest on, and [docs/ROADMAP.md](docs/ROADMAP.md) for what's next.*
