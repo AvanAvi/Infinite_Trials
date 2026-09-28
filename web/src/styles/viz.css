@@ -1,0 +1,208 @@
+/* Shared visualization components: Ferrers diagrams, number reveals. */
+
+.stage--hero,
+.stage--live {
+  border-style: solid;
+  background: var(--color-surface);
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ferrers-diagram {
+  display: block;
+  margin-inline: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 280px;
+}
+
+.ferrers-dot {
+  fill: var(--section-accent, var(--color-accent-cool));
+}
+
+.hero-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.hero-diagram__caption {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+}
+
+.hero-diagram__next {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.hero-diagram__next:hover {
+  border-color: var(--color-accent-cool);
+}
+
+.hero-diagram__counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.num-reveal {
+  display: inline-flex;
+}
+
+.num-reveal__char {
+  display: inline-block;
+}
+
+/* Generic live-stage controls, reused across sections 2-4. */
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.control-row label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.control-row input[type='range'] {
+  flex: 1;
+  min-width: 8rem;
+  accent-color: var(--section-accent, var(--color-accent-cool));
+}
+
+.control-row input[type='text'] {
+  flex: 1;
+  min-width: 10rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.control-row input:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.stat__value {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.growth-curve {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.growth-curve__actual {
+  fill: none;
+  stroke: var(--section-accent, var(--color-accent-cool));
+  stroke-width: 2;
+}
+
+.growth-curve__asymptotic {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.v1-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.v1-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  min-width: 3.5rem;
+}
+
+.v1-step__char {
+  font-size: var(--text-lg);
+  color: var(--color-text);
+}
+
+.v1-step__value {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.v1-error {
+  color: var(--color-accent-warm);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.collision-swarm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  width: 100%;
+  justify-content: center;
+}
+
+.collision-swarm__item {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.collision-swarm__item--origin {
+  border-color: var(--color-accent-warm);
+  color: var(--color-accent-warm);
+}

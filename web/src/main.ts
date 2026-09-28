@@ -1,6 +1,7 @@
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/sections.css';
+import './styles/viz.css';
 
 import { createHeader, createSkipLink } from './sections/header';
 import { createHeroSection } from './sections/hero';
