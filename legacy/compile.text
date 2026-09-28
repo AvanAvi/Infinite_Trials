@@ -1,0 +1,11 @@
+LEGACY - build instructions for InvPart.c, kept for history only.
+
+This file originally referenced "inverse_partitions.c", which never
+existed in the repo - the actual file is InvPart.c. Corrected below.
+See the header comment in InvPart.c for why this tool doesn't actually
+invert the partition function and shouldn't be used.
+
+gcc -fopenmp InvPart.c -o InvPart
+./InvPart
+
+// compile the cranky code : it works!! )
