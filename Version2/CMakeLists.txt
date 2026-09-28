@@ -22,6 +22,7 @@ endif()
 add_library(partition_core
     src/partition_encryption.cpp
     src/backtracking_strategy.cpp
+    src/mitm_strategy.cpp
 )
 
 target_include_directories(partition_core
@@ -54,6 +55,7 @@ if(BUILD_TESTING_INFINITE_TRIALS)
     add_executable(partition_tests
         test/test_partition_encryption.cpp
         test/test_backtracking_strategy.cpp
+        test/test_mitm_strategy.cpp
     )
 
     target_link_libraries(partition_tests
