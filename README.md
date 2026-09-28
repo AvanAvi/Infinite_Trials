@@ -15,7 +15,7 @@
 
 ## Overview
 
-**Infinity Trials** is an encryption system based on mathematical partition numbers. It transforms passwords into large numbers that are difficult to reverse without knowing the encryption method and lookup tables.
+**Infinity Trials** is a hobby project exploring integer partition numbers as the basis for a password encoding scheme, not a cryptographically secure system. Passwords are mapped to partition numbers, summed, and offset by a public constant to produce an encrypted value Z. Both the character-to-partition lookup table and the constant are checked into this public repository, so there is no secret to protect in the first place - and even with a secret table, the sum discards character order and collides heavily: see [docs/ANALYSIS.md](docs/ANALYSIS.md) for measured collision counts (a realistic 10-character password shares its Z with over 166,000 other, unrelated passwords). Treat this as a mathematical curiosity, not something to protect real credentials with.
 
 ## Version 1 (Original Python)
 
@@ -111,7 +111,7 @@ The asymptotic behavior of p(n) was derived by Hardy and Ramanujan:
 p(n) ~ (1 / (4n√3)) * e^(π√(2n/3))
 ```
 
-This exponential growth is key to the cryptographic strength of our algorithm.
+This exponential growth means large partition values are expensive to search exhaustively as *ordered strings*, but that has nothing to do with why the scheme resists exact decryption. The real reason is structural, not computational: summation is order-blind and many-to-one (see [docs/ANALYSIS.md](docs/ANALYSIS.md)), so no amount of compute recovers *the* password - only one of many equally valid candidates that produce the same Z.
 
 ## Algorithm Mechanics
 
@@ -164,11 +164,11 @@ flowchart TD
     style P fill:#d0ffdf,stroke:#00cc66
 ```
 
-1. **Meet-in-the-Middle**: Reduces O(c^n) complexity to O(c^(n/2)) by splitting the problem
-2. **Backtracking with Pruning**: Uses depth-first search with aggressive constraint-based pruning
-3. **Hybrid Approach**: Combines backtracking for the first few positions with MITM for the rest
+1. **Meet-in-the-Middle**: Splits each candidate length in half, enumerates character multisets per half, and merges matches
+2. **Backtracking with Pruning**: Enumerates character multisets via depth-first search with aggressive constraint-based pruning
+3. **Hybrid Approach**: Planned - combines backtracking for the first few positions with MITM for the rest; not yet implemented
 
-Each strategy offers different trade-offs between memory usage, CPU time, and effectiveness for different password lengths.
+Both implemented strategies enumerate *multisets* of characters, not ordered strings - the sum can't distinguish character order, so trying every ordering would just rediscover the same few results repeatedly. Every result re-encrypts to the target Z, but as [docs/ANALYSIS.md](docs/ANALYSIS.md) shows, that target Z is shared by very many result multisets - decryption returns *a* valid password, not necessarily *the* one that was encrypted.
 
 ## Setup Instructions
 
@@ -196,10 +196,13 @@ brew install gmp cmake
 
 # Setup
 git clone https://github.com/AvanAvi/Infinite_Trials.git
-cd Infinite_Trials/v2
+cd Infinite_Trials/Version2
 mkdir build && cd build
 cmake ..
 make
+
+# Run tests
+ctest --output-on-failure
 ```
 
 ## Acknowledgements
@@ -210,4 +213,4 @@ make
 
 ---
 
-*This project combines cryptography, number theory, and computer science to explore partition numbers as a security mechanism. While the original was a curious exploration, Version 2 aims to provide a more comprehensive analysis of the algorithm's potential.*
+*This project combines number theory and computer science to explore partition numbers as the basis for an encoding scheme - not, as earlier versions of this README claimed, a secure one. See [docs/ANALYSIS.md](docs/ANALYSIS.md) for why exact decryption isn't achievable. A properly keyed, reversible design built on the same mathematics is planned as a future version.*
