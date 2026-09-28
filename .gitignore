@@ -23,6 +23,7 @@ compile_commands.json
 # Python
 __pycache__/
 *.pyc
+.venv/
 
 # Editor/OS cruft
 .DS_Store
