@@ -1,3 +1,27 @@
+/**
+ * LEGACY - kept for history only. Do not build or use.
+ *
+ * Despite its name, this does NOT invert the partition function p(n).
+ * `numDigits` is set from strlen(partitionNum) - the number of *digits the
+ * user typed*, not the value itself. So entering "190569292" (which is
+ * p(100)) sets numDigits = 9, and the DP below then computes p(9) = 30,
+ * a completely unrelated number. It has never inverted anything.
+ *
+ * The DP itself is also broken independent of the above: for a fixed i,
+ * `dp[j] += dp[j - i]` has a loop-carried dependency whenever j - i >= i,
+ * since that slot is written earlier in the very same parallel loop
+ * (this is what makes the unbounded-coin-change recurrence correct when
+ * run serially in ascending j order). `#pragma omp parallel for` on this
+ * inner loop is a data race: threads read dp[j-i] before or after it's
+ * updated non-deterministically, so results vary between runs and are
+ * wrong regardless.
+ *
+ * A correct inverse-partition tool lives at Version2/include/inverse_partition.h
+ * and Version2/src/inverse_partition.cpp: given p(n) as a decimal string, it
+ * estimates n via the Hardy-Ramanujan inversion and confirms it exactly via
+ * Euler's pentagonal number recurrence, with no parallelism and no race.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

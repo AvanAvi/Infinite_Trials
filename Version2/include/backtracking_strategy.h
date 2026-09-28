@@ -6,17 +6,18 @@
 #include <string>
 #include <vector>
 #include <gmpxx.h>
-#include <set>
 
 /**
  * @class BacktrackingStrategy
- * @brief Implementation of the Backtracking with Pruning decryption strategy
- * 
- * This strategy uses depth-first search with aggressive constraint-based pruning:
- * - Builds passwords character by character
- * - Prunes branches early when partial sums exceed target or are impossible
- * - Uses bounds checking to eliminate impossible paths
- * - Memory efficient compared to MITM but potentially slower for longer passwords
+ * @brief Backtracking with Pruning decryption strategy over character *multisets*.
+ *
+ * Builds each candidate password length by choosing characters in
+ * non-decreasing partition-value order (a start index into the sorted
+ * character list), so each multiset is produced exactly once instead of
+ * once per permutation of it. Overshoot pruning relies on that ascending
+ * order: once a candidate exceeds the target, every later (larger-valued)
+ * candidate also would, so the remaining candidates at that position can
+ * be skipped in one step.
  */
 class BacktrackingStrategy : public DecryptionStrategy {
 public:
@@ -62,25 +63,22 @@ public:
 private:
     /**
      * @brief Recursive backtracking function
-     * @param currentPassword Current partial password being built
+     * @param currentPassword Mutable buffer for the partial password being built
      * @param currentSum Current sum of partition values
      * @param targetSum Target sum to reach
-     * @param remainingSum Maximum possible sum from remaining positions
-     * @param minLength Minimum password length
-     * @param maxLength Maximum password length
-     * @param charToPartition Character to partition mapping
-     * @param sortedChars Sorted characters for optimization
+     * @param length Exact password length being attempted
+     * @param startIdx Index into sortedChars that the next character must come
+     *        from (or later) so multisets are enumerated, not permutations
+     * @param sortedChars Characters sorted ascending by partition value
      * @param results Vector to store found solutions
      * @return True if should continue searching, false if max solutions reached
      */
     bool backtrackRecursive(
-        const std::string& currentPassword,
+        std::string& currentPassword,
         const mpz_class& currentSum,
         const mpz_class& targetSum,
-        const mpz_class& remainingSum,
-        unsigned int minLength,
-        unsigned int maxLength,
-        const std::unordered_map<char, mpz_class>& charToPartition,
+        unsigned int length,
+        size_t startIdx,
         const std::vector<std::pair<char, mpz_class>>& sortedChars,
         std::vector<std::string>& results);
 
@@ -102,9 +100,6 @@ private:
      * @param remainingPositions Remaining positions to fill
      * @param minVal Minimum partition value
      * @param maxVal Maximum partition value
-     * @param currentLength Current password length
-     * @param minLength Minimum required length
-     * @param maxLength Maximum allowed length
      * @return True if path is viable, false if should be pruned
      */
     bool isViablePath(
@@ -112,32 +107,15 @@ private:
         const mpz_class& targetSum,
         unsigned int remainingPositions,
         const mpz_class& minVal,
-        const mpz_class& maxVal,
-        unsigned int currentLength,
-        unsigned int minLength,
-        unsigned int maxLength);
+        const mpz_class& maxVal);
 
     /**
-     * @brief Create a sorted list of characters by partition value
+     * @brief Create a list of characters sorted ascending by partition value
      * @param charToPartition Character to partition mapping
      * @return Sorted vector of (character, partition_value) pairs
      */
     std::vector<std::pair<char, mpz_class>> createSortedCharacters(
         const std::unordered_map<char, mpz_class>& charToPartition);
-
-    /**
-     * @brief Calculate remaining sum potential from current position
-     * @param targetSum Target sum to reach
-     * @param currentSum Current partial sum
-     * @param remainingPositions Remaining positions
-     * @param maxVal Maximum partition value
-     * @return Maximum possible remaining sum
-     */
-    mpz_class calculateRemainingSum(
-        const mpz_class& targetSum,
-        const mpz_class& currentSum,
-        unsigned int remainingPositions,
-        const mpz_class& maxVal);
 
     bool enableOptimizations;     // Whether to use advanced pruning
     size_t maxSolutions;          // Maximum solutions to find (0 = unlimited)
