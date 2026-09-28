@@ -23,6 +23,7 @@ add_library(partition_core
     src/partition_encryption.cpp
     src/backtracking_strategy.cpp
     src/mitm_strategy.cpp
+    src/inverse_partition.cpp
 )
 
 target_include_directories(partition_core
@@ -56,6 +57,7 @@ if(BUILD_TESTING_INFINITE_TRIALS)
         test/test_partition_encryption.cpp
         test/test_backtracking_strategy.cpp
         test/test_mitm_strategy.cpp
+        test/test_inverse_partition.cpp
     )
 
     target_link_libraries(partition_tests
@@ -85,4 +87,13 @@ target_link_libraries(partition_benchmark
 target_compile_definitions(partition_benchmark
     PRIVATE
         LOOKUP_TABLE_PATH="${CMAKE_CURRENT_SOURCE_DIR}/data/lookup_table.csv"
+)
+
+add_executable(inverse_partition
+    tools/inverse_partition_main.cpp
+)
+
+target_link_libraries(inverse_partition
+    PRIVATE
+        partition_core
 )
