@@ -147,6 +147,37 @@
   stroke-dasharray: 4 3;
 }
 
+.growth-curve__highlight {
+  fill: var(--color-text);
+  stroke: var(--color-surface);
+  stroke-width: 1.5;
+}
+
+.growth-curve-legend {
+  display: flex;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.growth-curve-legend__swatch {
+  display: inline-block;
+  width: 1.5rem;
+  height: 2px;
+  margin-right: var(--space-1);
+  vertical-align: middle;
+}
+
+.growth-curve-legend__swatch--actual {
+  background: var(--color-accent-cool);
+}
+
+.growth-curve-legend__swatch--asymptotic {
+  background: none;
+  border-top: 2px dashed var(--color-text-muted);
+}
+
 .v1-steps {
   display: flex;
   flex-wrap: wrap;
