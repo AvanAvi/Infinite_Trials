@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "fix/**", "feat/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp-dev cmake build-essential
+
+      - name: Configure
+        run: cmake -S Version2 -B Version2/build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build Version2/build --parallel
+
+      - name: Test
+        run: ctest --test-dir Version2/build --output-on-failure

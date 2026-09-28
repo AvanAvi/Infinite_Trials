@@ -1,0 +1,25 @@
+# Build output
+build/
+build*/
+out/
+_deps/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+compile_commands.json
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.exe
+
+# Editor/OS cruft
+.DS_Store
+*.swp
