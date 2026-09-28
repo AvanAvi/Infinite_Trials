@@ -14,7 +14,10 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <map>
 #include <gmpxx.h> // For GMP library
+
+class DecryptionStrategy;
 
 /**
  * @class PartitionEncryption
@@ -72,7 +75,7 @@ protected:
     void validatePassword(const std::string& password) const;
 
     std::unordered_map<char, mpz_class> charToPartition; // Maps characters to partition values
-    std::unordered_map<mpz_class, char> partitionToChar; // Reverse mapping for decryption
+    std::map<mpz_class, char> partitionToChar; // Reverse mapping for decryption (mpz_class has no std::hash)
     mpz_class constantC; // The constant C value
     unsigned int minPasswordLength; // Minimum allowed password length
     unsigned int maxPasswordLength; // Maximum allowed password length

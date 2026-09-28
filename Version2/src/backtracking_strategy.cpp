@@ -214,15 +214,3 @@ mpz_class BacktrackingStrategy::calculateRemainingSum(
     
     return (sumNeeded < maxPossible) ? sumNeeded : maxPossible;
 }
-
-std::string DecryptionStrategy::getPerformanceMetrics() const {
-    double durationMs = duration.count() / 1000.0;
-    double memoryKB = memoryUsed / 1024.0;
-    
-    std::string metrics = "Performance Metrics:\n";
-    metrics += "  Duration: " + std::to_string(durationMs) + " ms\n";
-    metrics += "  Combinations checked: " + std::to_string(combinationsChecked) + "\n";
-    metrics += "  Memory used: " + std::to_string(memoryKB) + " KB\n";
-    
-    return metrics;
-}
