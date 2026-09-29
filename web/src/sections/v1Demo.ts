@@ -2,6 +2,7 @@ import { animate, stagger } from 'animejs';
 
 import { CONSTANT_C, v1Encrypt } from '../core/v1';
 import { prefersReducedMotion } from '../motion/reducedMotion';
+import { setDemoPassword } from '../state/demoPassword';
 import { createNumberReveal } from '../viz/numberReveal';
 import { createSectionShell, type SectionShell } from './shell';
 
@@ -109,6 +110,8 @@ export function createV1DemoSection(): SectionShell {
       clearStage();
       return;
     }
+
+    setDemoPassword(password);
 
     stepsRow.replaceChildren();
     const cards = result.steps.map(({ char, partitionValue }) => {

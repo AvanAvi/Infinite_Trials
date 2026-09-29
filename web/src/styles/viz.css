@@ -215,6 +215,11 @@
   font-size: var(--text-sm);
 }
 
+.crack-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
 .collision-swarm {
   display: flex;
   flex-wrap: wrap;
