@@ -482,3 +482,99 @@
   color: var(--color-accent-cool);
   font-weight: 600;
 }
+
+/* Security section: live Argon2id timer, limits, roadmap */
+.security-kdf {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.security-kdf button {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.security-kdf button:hover:not(:disabled) {
+  border-color: var(--color-accent-cool);
+}
+
+.security-kdf button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.security-subheading {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+}
+
+.limits-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.limits-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-accent-warm);
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.limits-item__title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.limits-item__body {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.roadmap-phase__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-accent-cool);
+  margin: 0 0 var(--space-1);
+}
+
+.roadmap-phase__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: left;
+}
