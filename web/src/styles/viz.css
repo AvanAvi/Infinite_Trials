@@ -242,3 +242,99 @@
   border-color: var(--color-accent-warm);
   color: var(--color-accent-warm);
 }
+
+/* V2 search tree */
+.tree-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.tree-preset-row,
+.tree-mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.tree-preset-row button,
+.tree-mode-row button {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.tree-preset-row button[aria-pressed='true'],
+.tree-mode-row button[aria-pressed='true'] {
+  border-color: var(--color-accent-cool);
+  color: var(--color-accent-cool);
+  font-weight: 600;
+}
+
+.tree-stats {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.tree-view {
+  width: 100%;
+  max-height: 22rem;
+  overflow: auto;
+  padding: var(--space-2) 0;
+}
+
+.tree-view ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 1.25rem;
+  border-left: 1px dashed var(--color-border);
+}
+
+.tree-view > ul {
+  padding-left: 0;
+  border-left: none;
+}
+
+.tree-view li {
+  margin: var(--space-1) 0;
+}
+
+.tree-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.tree-node--result {
+  border-color: var(--color-accent-cool);
+  color: var(--color-accent-cool);
+  font-weight: 600;
+}
+
+.tree-node--pruned {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.tree-empty {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-accent-warm);
+  padding: var(--space-3);
+}
