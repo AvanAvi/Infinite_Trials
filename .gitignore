@@ -28,3 +28,4 @@ __pycache__/
 # Editor/OS cruft
 .DS_Store
 *.swp
+web/docs/reference/

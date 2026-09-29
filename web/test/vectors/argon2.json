@@ -1,0 +1,5 @@
+{
+  "passphrase": "test passphrase",
+  "salt_hex": "000102030405060708090a0b0c0d0e0f",
+  "key_hex": "994c068940beb36c3776a3a9c16e393194399908696980572ebaf9041a875240"
+}
