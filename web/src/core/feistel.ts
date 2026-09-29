@@ -105,6 +105,95 @@ async function feistelBlock(
   return (L << BigInt(halfBits)) | R;
 }
 
+export interface FeistelRoundState {
+  round: number; // 0 = initial split, 1..rounds = after that round
+  L: bigint;
+  R: bigint;
+}
+
+async function feistelBlockTraced(
+  x: bigint,
+  cryptoKey: CryptoKey,
+  bitWidth: number,
+  rounds: number,
+  encrypting: boolean
+): Promise<{ result: bigint; states: FeistelRoundState[] }> {
+  const halfBits = bitWidth >> 1;
+  const halfBytes = Math.ceil(halfBits / 8);
+  const mask = (1n << BigInt(halfBits)) - 1n;
+
+  let L = x >> BigInt(halfBits);
+  let R = x & mask;
+  const states: FeistelRoundState[] = [{ round: 0, L, R }];
+
+  for (let step = 0; step < rounds; step++) {
+    const roundNum = encrypting ? step + 1 : rounds - step;
+    if (encrypting) {
+      const fOut = (await roundFunction(cryptoKey, roundNum, halfBytes, R)) & mask;
+      [L, R] = [R, L ^ fOut];
+    } else {
+      const fOut = (await roundFunction(cryptoKey, roundNum, halfBytes, L)) & mask;
+      [L, R] = [R ^ fOut, L];
+    }
+    states.push({ round: step + 1, L, R });
+  }
+
+  return { result: (L << BigInt(halfBits)) | R, states };
+}
+
+export interface FeistelTrace {
+  /** How many full permutation applications cycle-walking needed - usually 1. */
+  cycleWalks: number;
+  /** Per-round (L, R) states of the FINAL (successful) walk, index 0 = initial split. */
+  rounds: FeistelRoundState[];
+  bitWidth: number;
+  result: bigint;
+}
+
+/** Same bijection as encryptDomain, but returns the full per-round trace for visualization. */
+export async function encryptDomainTraced(
+  x: bigint,
+  key: Uint8Array,
+  domainSize: bigint,
+  rounds = DEFAULT_ROUNDS
+): Promise<FeistelTrace> {
+  checkParams(x, domainSize, rounds);
+  const cryptoKey = await importHmacKey(key);
+  const bitWidth = evenBitWidth(domainSize);
+  let y = x;
+  let cycleWalks = 0;
+  for (;;) {
+    cycleWalks++;
+    const traced = await feistelBlockTraced(y, cryptoKey, bitWidth, rounds, true);
+    y = traced.result;
+    if (y < domainSize) {
+      return { cycleWalks, rounds: traced.states, bitWidth, result: y };
+    }
+  }
+}
+
+/** Same bijection as decryptDomain, but returns the full per-round trace for visualization. */
+export async function decryptDomainTraced(
+  y: bigint,
+  key: Uint8Array,
+  domainSize: bigint,
+  rounds = DEFAULT_ROUNDS
+): Promise<FeistelTrace> {
+  checkParams(y, domainSize, rounds);
+  const cryptoKey = await importHmacKey(key);
+  const bitWidth = evenBitWidth(domainSize);
+  let x = y;
+  let cycleWalks = 0;
+  for (;;) {
+    cycleWalks++;
+    const traced = await feistelBlockTraced(x, cryptoKey, bitWidth, rounds, false);
+    x = traced.result;
+    if (x < domainSize) {
+      return { cycleWalks, rounds: traced.states, bitWidth, result: x };
+    }
+  }
+}
+
 function checkParams(x: bigint, domainSize: bigint, rounds: number): void {
   if (x < 0n || x >= domainSize) {
     throw new Error(`${x} out of domain [0, ${domainSize})`);
