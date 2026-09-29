@@ -2,11 +2,20 @@ import { animate, stagger } from 'animejs';
 
 import { decodePassword, encodePassword, MAX_PASSWORD_LENGTH } from '../core/encoding';
 import { decryptDomainTraced, encryptDomainTraced, type FeistelTrace } from '../core/feistel';
-import { minN, partitionsCount } from '../core/partitions';
-import { rank, unrank } from '../core/rank';
+import { getMathClient } from '../core/worker/mathClient';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { createFerrersDiagram, type FerrersDiagramHandle } from '../viz/ferrersDiagram';
 import { createSectionShell, type SectionShell } from './shell';
+
+// minN/partitionsCount/unrank/rank build an O(N^2) BigInt table - cheap
+// for the short default demo password, but a max-length (32-char) one
+// pushes N into the thousands and can block the main thread for
+// multiple seconds (measured ~2.7s at N=3067). Routing them through the
+// worker keeps typing responsive regardless of password length.
+//
+// getMathClient() is called lazily, inside runEncrypt/runDecrypt below,
+// not at module or section-mount scope - it constructs a real Worker,
+// which jsdom (the smoke test's environment) doesn't implement.
 
 const KEY_BYTES = 32;
 const DEFAULT_PASSWORD = 'hi';
@@ -272,6 +281,7 @@ export function createV3PipelineSection(): SectionShell {
   }
 
   async function runEncrypt(password: string, generation: number): Promise<void> {
+    const mathClient = getMathClient();
     let encoded;
     try {
       encoded = encodePassword(password);
@@ -283,12 +293,15 @@ export function createV3PipelineSection(): SectionShell {
     }
 
     const { value, length } = encoded;
-    const N = minN(62n ** BigInt(length));
-    const domainSize = partitionsCount(N);
+    const N = await mathClient.minN(62n ** BigInt(length));
+    if (generation !== runGeneration) return;
+    const domainSize = await mathClient.partitionsCount(N);
+    if (generation !== runGeneration) return;
     const trace = await encryptDomainTraced(value, key, domainSize);
     if (generation !== runGeneration) return; // a newer run superseded this one
 
-    const parts = unrank(trace.result, N);
+    const parts = await mathClient.unrank(trace.result, N);
+    if (generation !== runGeneration) return;
     const ciphertext = `${N}:${length}:${parts.join('+')}`;
     lastCiphertext = ciphertext;
     ciphertextInput.value = ciphertext;
@@ -340,6 +353,7 @@ export function createV3PipelineSection(): SectionShell {
   }
 
   async function runDecrypt(ciphertext: string, generation: number): Promise<void> {
+    const mathClient = getMathClient();
     const segments = ciphertext.split(':');
     if (segments.length !== 3) {
       statusLine.textContent = 'No ciphertext yet - encrypt a password first.';
@@ -352,8 +366,10 @@ export function createV3PipelineSection(): SectionShell {
     const parts = partsStr.length > 0 ? partsStr.split('+').map(Number) : [];
 
     const usedKey = wrongKeyCheckbox.checked ? randomKey() : key;
-    const domainSize = partitionsCount(N);
-    const permuted = rank(parts, N);
+    const domainSize = await mathClient.partitionsCount(N);
+    if (generation !== runGeneration) return;
+    const permuted = await mathClient.rank(parts, N);
+    if (generation !== runGeneration) return;
     const trace = await decryptDomainTraced(permuted, usedKey, domainSize);
     if (generation !== runGeneration) return;
 
