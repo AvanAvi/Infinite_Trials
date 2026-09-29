@@ -49,6 +49,20 @@ export function v1Encrypt(password: string): V1EncryptionResult {
   return { steps, k, z: k + CONSTANT_C };
 }
 
+/**
+ * The password's characters sorted by ascending partition value - the same
+ * order findMultisets (src/core/backtracking.ts) emits each multiset in, so
+ * the two can be compared as plain strings. Not alphabetical: 'A' sorts
+ * after 'z' and digits sort last, because that's how their values rank.
+ */
+export function canonicalMultiset(password: string): string {
+  return Array.from(password)
+    .map((char) => ({ char, value: getPartitionValue(char) }))
+    .sort((a, b) => (a.value < b.value ? -1 : a.value > b.value ? 1 : 0))
+    .map(({ char }) => char)
+    .join('');
+}
+
 export function lookupTableSize(): number {
   return LOOKUP_TABLE.size;
 }

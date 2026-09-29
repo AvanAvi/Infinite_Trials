@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { findMultisets } from '../../src/core/backtracking';
 import { countMultisetsWithSum } from '../../src/core/collisions';
-import { allPartitionValues, getPartitionValue } from '../../src/core/v1';
+import { allPartitionValues, canonicalMultiset, getPartitionValue } from '../../src/core/v1';
 import { ALPHABET } from '../../src/core/encoding';
 import collisionsVectors from '../vectors/collisions.json';
 
@@ -33,5 +33,21 @@ describe('findMultisets agrees with the collision counter', () => {
 
     const capped = findMultisets(allCharValues(), 32n, 4, 2);
     expect(capped.length).toBe(2);
+  });
+});
+
+describe('canonicalMultiset', () => {
+  it('orders characters by partition value, not alphabetically', () => {
+    expect(canonicalMultiset('cab')).toBe('abc');
+    expect(canonicalMultiset('Ba')).toBe('aB');
+    expect(canonicalMultiset('1Az')).toBe('zA1');
+  });
+
+  it('matches the form findMultisets emits, so a password is found among its own collisions', () => {
+    for (const password of ['cab', 'aB', 'face', 'Zz9']) {
+      const k = Array.from(password).reduce((acc, c) => acc + getPartitionValue(c), 0n);
+      const results = findMultisets(allCharValues(), k, password.length, 1000);
+      expect(results).toContain(canonicalMultiset(password));
+    }
   });
 });

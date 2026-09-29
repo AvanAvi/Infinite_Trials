@@ -3,7 +3,7 @@ import { animate, random, stagger } from 'animejs';
 import { findMultisets, type CharValue } from '../core/backtracking';
 import { countMultisetsWithSum } from '../core/collisions';
 import { ALPHABET } from '../core/encoding';
-import { allPartitionValues, getPartitionValue, v1Encrypt } from '../core/v1';
+import { allPartitionValues, canonicalMultiset, getPartitionValue, v1Encrypt } from '../core/v1';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { getDemoPassword, onDemoPasswordChange } from '../state/demoPassword';
 
@@ -121,32 +121,41 @@ export function mountCrackExplosion(container: HTMLElement): void {
       return;
     }
 
-    const others = explosion.total - 1n;
+    // Samples come back in partition-value order, so the origin has to be
+    // compared in that same order or it slips into the list as a "collision"
+    // with itself.
+    const origin = canonicalMultiset(explosion.origin);
+    const others = explosion.samples.filter((s) => s !== origin);
+    const otherCount = explosion.total - 1n;
+    const length = explosion.origin.length;
+    const reorderings =
+      'Every reordering of its own characters collides too, since addition ignores order.';
+
     if (explosion.isLive) {
-      summary.textContent = `"${explosion.origin}" (K=${fmt(explosion.k)}) shares its Z with ${fmt(others)} other ${explosion.origin.length}-character strings.`;
+      summary.textContent = `"${explosion.origin}" (K=${fmt(explosion.k)}) shares its Z with ${fmt(otherCount)} other ${length}-character combinations.`;
       note.textContent =
-        explosion.samples.length < others
-          ? `Showing ${explosion.samples.length} of them, found live in your browser.`
-          : 'All of them, found live in your browser.';
+        otherCount === 0n
+          ? reorderings
+          : BigInt(others.length) < otherCount
+            ? `Showing ${others.length} of them, found live in your browser. ${reorderings}`
+            : `All of them, found live in your browser. ${reorderings}`;
     } else {
-      summary.textContent = `"${explosion.origin}" (K=${fmt(explosion.k)}) shares its Z with ${fmt(others)} other 10-character strings - documented in docs/ANALYSIS.md.`;
-      note.textContent = `Your current demo string is too long to search live here, so this shows the documented example instead - ${explosion.samples.length} of its real ${fmt(others)} collisions.`;
+      summary.textContent = `"${explosion.origin}" (K=${fmt(explosion.k)}) shares its Z with ${fmt(otherCount)} other ${length}-character combinations - documented in docs/ANALYSIS.md.`;
+      note.textContent = `Your current demo string is too long to search live here, so this shows the documented example instead - ${others.length} of its ${fmt(otherCount)} colliding combinations. ${reorderings}`;
     }
 
     swarm.replaceChildren();
-    const items = explosion.samples
-      .filter((s) => s !== explosion.origin)
-      .map((sample) => {
-        const item = document.createElement('span');
-        item.className = 'collision-swarm__item';
-        item.textContent = sample;
-        swarm.append(item);
-        return item;
-      });
+    const items = others.map((sample) => {
+      const item = document.createElement('span');
+      item.className = 'collision-swarm__item';
+      item.textContent = sample;
+      swarm.append(item);
+      return item;
+    });
 
     const originItem = document.createElement('span');
     originItem.className = 'collision-swarm__item collision-swarm__item--origin';
-    originItem.textContent = [...explosion.origin].sort().join('');
+    originItem.textContent = origin;
     swarm.prepend(originItem);
 
     if (!prefersReducedMotion() && items.length > 0) {

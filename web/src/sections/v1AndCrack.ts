@@ -104,7 +104,7 @@ export function createV1AndCrackSection(): CombinedSection {
     id: 'crack',
     eyebrow: 'The crack',
     heading: 'My own 2019 draft claimed this was unique',
-    lead: 'The same Z from above explodes into every other string that produces it - all real, computed live, right next to the demo. A realistic 10-character password shares its Z with 166,165 completely unrelated others.',
+    lead: 'The same Z from above explodes into every other string that produces it - all real, computed live, right next to the demo. A realistic 10-character password shares its Z with 166,165 other character combinations - before even counting reorderings of its own characters, which collide too.',
     quote: {
       text: 'There exists only one possible combination of numbers through which we get the above result for ‘Z’.',
       source: 'ARCHITECTURE_DRAFT_1.pdf, 9/4/19',
