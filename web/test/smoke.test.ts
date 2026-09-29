@@ -8,18 +8,16 @@ describe('scaffold smoke test', () => {
     const app = document.querySelector('#app');
     expect(app).not.toBeNull();
 
-    const sectionIds = [
-      'hero',
-      'spark',
-      'v1-demo',
-      'crack',
-      'v2-search',
-      'v3-pipeline',
-      'security',
-    ];
+    const sectionIds = ['hero', 'spark', 'v1-and-crack', 'v2-search', 'v3-pipeline', 'security'];
     for (const id of sectionIds) {
       expect(document.getElementById(id), `#${id} should be mounted`).not.toBeNull();
     }
+
+    // v1-and-crack merges two narrative beats into one section (see
+    // src/sections/v1AndCrack.ts) - both headings must still be present,
+    // just as headings rather than section ids of their own.
+    expect(document.getElementById('v1-demo-heading')).not.toBeNull();
+    expect(document.getElementById('crack-heading')).not.toBeNull();
 
     expect(document.querySelector('footer.site-footer')).not.toBeNull();
     expect(document.querySelector('a.skip-link')).not.toBeNull();

@@ -6,7 +6,6 @@ import { ALPHABET } from '../core/encoding';
 import { allPartitionValues, getPartitionValue, v1Encrypt } from '../core/v1';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { getDemoPassword, onDemoPasswordChange } from '../state/demoPassword';
-import { createSectionShell, type SectionShell } from './shell';
 
 // Live computation stays fast (single-digit ms) only within these bounds -
 // see the timing check in the Step 5 commit: password12's real case (K
@@ -16,9 +15,9 @@ const MAX_LIVE_LENGTH = 6;
 const MAX_LIVE_K = 100_000n;
 const MAX_SAMPLES = 24;
 
-// docs/ANALYSIS.md's worked example - verified again live in Section 3's
-// own demo (typing "password12" there shows K=981954 exactly). The 16
-// sample strings below are real output from src/core/backtracking.ts's
+// docs/ANALYSIS.md's worked example - verified again live in the V1 demo
+// (typing "password12" there shows K=981954 exactly). The 16 sample
+// strings below are real output from src/core/backtracking.ts's
 // findMultisets(charValues, 981954n, 10, 16) - precomputed here rather
 // than recomputed on every page load, since that call alone takes ~1.7s.
 // Reproduce with: npx vite-node - against src/core/backtracking.ts.
@@ -88,24 +87,13 @@ function computeExplosion(password: string): Explosion | null {
   };
 }
 
-export function createCrackSection(): SectionShell {
-  const shell = createSectionShell({
-    id: 'crack',
-    eyebrow: 'The crack',
-    heading: 'My own 2019 draft claimed this was unique',
-    lead: 'The same Z from the last section explodes into every other string that produces it - all real, computed live. A realistic 10-character password shares its Z with 166,165 completely unrelated others.',
-    quote: {
-      text: 'There exists only one possible combination of numbers through which we get the above result for ‘Z’.',
-      source: 'ARCHITECTURE_DRAFT_1.pdf, 9/4/19',
-    },
-    idea: 'I measured it, and it’s off by 166,165.',
-    accent: 'warm',
-    stagePlaceholder: '',
-  });
-
-  shell.stage.classList.add('stage--live');
-  shell.stage.textContent = '';
-
+/**
+ * Builds the collision-explosion visualization into `container` and wires
+ * it to src/state/demoPassword.ts. Extracted from what used to be a full
+ * section-building function so it can be mounted side by side with the V1
+ * pipeline demo in one combined layout (see v1AndCrack.ts).
+ */
+export function mountCrackExplosion(container: HTMLElement): void {
   const summary = document.createElement('p');
   summary.className = 'stat__value';
   summary.setAttribute('aria-live', 'polite');
@@ -117,7 +105,7 @@ export function createCrackSection(): SectionShell {
   swarm.className = 'collision-swarm';
   swarm.setAttribute('aria-label', 'Other strings that produce the same encrypted value');
 
-  shell.stage.append(summary, note, swarm);
+  container.append(summary, note, swarm);
 
   function fmt(n: bigint): string {
     return n.toLocaleString('en-US');
@@ -179,6 +167,4 @@ export function createCrackSection(): SectionShell {
   render(initial);
 
   onDemoPasswordChange((password) => render(password));
-
-  return shell;
 }

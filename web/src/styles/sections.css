@@ -128,6 +128,26 @@
   border: 1px solid color-mix(in srgb, var(--color-accent-warm) 35%, transparent);
 }
 
+/*
+ * Paired section (V1 demo + the crack): both live in one section so their
+ * panels can sit side by side, since the crack's explosion always reflects
+ * whatever's in the V1 demo's input (src/state/demoPassword.ts) - they
+ * were never really independent. DOM order is both text blocks, then both
+ * panels; grid-column placement (not DOM order) is what puts the panels
+ * beside the text at wide viewports, so reading/tab order stays the
+ * narrative first, then the two live demos.
+ */
+.paired-text,
+.paired-stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.paired-stage__panel {
+  margin-top: 0;
+}
+
 .site-footer {
   padding: var(--space-6) var(--space-3);
   border-top: 1px solid var(--color-border);
@@ -183,6 +203,16 @@
     grid-column: 2;
     margin-top: 0;
     min-height: 24rem;
+  }
+
+  .paired-text {
+    grid-column: 1;
+  }
+
+  .paired-stage {
+    grid-column: 2;
+    position: sticky;
+    top: var(--space-5);
   }
 
   .section--stacked .section__inner {

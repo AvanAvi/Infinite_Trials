@@ -4,26 +4,20 @@ import { CONSTANT_C, v1Encrypt } from '../core/v1';
 import { prefersReducedMotion } from '../motion/reducedMotion';
 import { setDemoPassword } from '../state/demoPassword';
 import { createNumberReveal } from '../viz/numberReveal';
-import { createSectionShell, type SectionShell } from './shell';
 
-const DEFAULT_PASSWORD = 'hello';
+export const DEFAULT_PASSWORD = 'hello';
 const DEBOUNCE_MS = 150;
 
-export function createV1DemoSection(): SectionShell {
-  const shell = createSectionShell({
-    id: 'v1-demo',
-    eyebrow: 'V1 in action',
-    heading: 'Encrypting is just adding up big numbers',
-    lead: 'Type a demo string and watch each character fly out to its own partition value, collapse into a running total K, then add the public constant C to produce Z.',
-    idea: 'Nothing about addition can be undone without more information than the sum alone gives you.',
-    accent: 'warm',
-    demoWarning: true,
-    stagePlaceholder: '',
-  });
-
-  shell.stage.classList.add('stage--live');
-  shell.stage.textContent = '';
-
+/**
+ * Builds the V1 encryption pipeline demo into `container` and wires it up
+ * live. Extracted from what used to be a full section-building function so
+ * it can be mounted side by side with the crack section's explosion in one
+ * combined layout (see v1AndCrack.ts) - the two are already coupled
+ * through src/state/demoPassword.ts, so putting them where a visitor can
+ * see cause and effect at once, without scrolling back and forth, is the
+ * more honest arrangement.
+ */
+export function mountV1Pipeline(container: HTMLElement): void {
   const controlRow = document.createElement('div');
   controlRow.className = 'control-row';
 
@@ -74,7 +68,7 @@ export function createV1DemoSection(): SectionShell {
   errorEl.setAttribute('role', 'alert');
   errorEl.setAttribute('aria-live', 'polite');
 
-  shell.stage.append(controlRow, stepsRow, statRow, errorEl);
+  container.append(controlRow, stepsRow, statRow, errorEl);
 
   // Guards the Z-reveal setTimeout below: if the visitor keeps typing before
   // it fires, a stale timeout from an earlier render() could otherwise
@@ -161,6 +155,4 @@ export function createV1DemoSection(): SectionShell {
   });
 
   render(DEFAULT_PASSWORD);
-
-  return shell;
 }

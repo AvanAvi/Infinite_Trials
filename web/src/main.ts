@@ -6,8 +6,7 @@ import './styles/viz.css';
 import { createHeader, createSkipLink } from './sections/header';
 import { createHeroSection } from './sections/hero';
 import { createSparkSection } from './sections/spark';
-import { createV1DemoSection } from './sections/v1Demo';
-import { createCrackSection } from './sections/crack';
+import { createV1AndCrackSection } from './sections/v1AndCrack';
 import { createV2SearchSection } from './sections/v2Search';
 import { createV3PipelineSection } from './sections/v3Pipeline';
 import { createSecuritySection } from './sections/security';
@@ -25,8 +24,7 @@ function mount(): void {
   const sections = [
     createHeroSection(),
     createSparkSection(),
-    createV1DemoSection(),
-    createCrackSection(),
+    createV1AndCrackSection(),
     createV2SearchSection(),
     createV3PipelineSection(),
     createSecuritySection(),
